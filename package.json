@@ -26,7 +26,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build-tailwind": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+    "build-tailwind": "npx tailwindcss -i ./src/assets/styles/globals.css -o ./dist/styles.css",
     "build-components": "tsc --build",
     "build": "npm run build-components && npm run build-tailwind"
   }, 

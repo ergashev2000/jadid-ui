@@ -1,6 +1,6 @@
-import React, { forwardRef, ReactNode } from "react";
+import React, { forwardRef, ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
 
-export interface ButtonProps {
+export interface CommonButtonProps {
   autoInsertSpace?: boolean;
   block?: boolean;
   classNames?: string;
@@ -9,18 +9,26 @@ export interface ButtonProps {
   ghost?: boolean;
   href?: string;
   htmlType?: "button" | "submit" | "reset";
-  icon?: ReactNode; 
-  iconPosition?: "start" | "end";
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
   loading?: boolean | { delay: number };
   shape?: "default" | "circle" | "round";
-  size?: "large" | "middle" | "small";
+  size?: "xl" | "lg" | "md" | "sm" | "xs";
   styles?: React.CSSProperties;
   type?: "primary" | "dashed" | "link" | "text" | "default";
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children?: ReactNode;
+  title?: string;
+  ariaLabel?: string;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+type ButtonProps = CommonButtonProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, keyof CommonButtonProps>;
+
+type AnchorProps = CommonButtonProps & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof CommonButtonProps>;
+
+type CombinedButtonProps = ButtonProps | AnchorProps;
+
+const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, CombinedButtonProps>(
   (
     {
       autoInsertSpace = true,
@@ -31,8 +39,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ghost = false,
       href,
       htmlType = "button",
-      icon,
-      iconPosition = "start",
+      startIcon,
+      endIcon,
       loading = false,
       shape = "default",
       size = "middle",
@@ -40,58 +48,43 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type = "default",
       onClick,
       children,
+      title,
+      ariaLabel,
+      ...rest
     },
     ref
   ) => {
-    const baseClass =
-      "inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 gap-3";
+    const baseClass = "inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 gap-3 transition-all duration-300";
     const blockClass = block ? "w-full" : "";
     const disabledClass = disabled ? "opacity-50 cursor-not-allowed" : "";
-    const loadingClass =
-      typeof loading === "boolean" && loading ? "opacity-70" : "";
+    const loadingClass = typeof loading === "boolean" && loading ? "opacity-70 cursor-not-allowed" : "";
 
-    const sizeClass =
-      size === "large"
-        ? "px-6 py-3 text-lg"
-        : size === "small"
-        ? "px-3 py-1 text-sm"
-        : "px-4 py-2 text-base";
+    const sizeClass = {
+      xl: "px-8 py-4 text-xl",
+      lg: "px-6 py-3 text-lg",
+      md: "px-4 py-2 text-base",
+      sm: "px-3 py-1.5 text-sm",
+      xs: "px-2 py-1 text-xs",
+    }[size];
 
-    const typeClass =
-      type === "primary"
-        ? "bg-primary text-white hover:bg-primary-dark"
-        : type === "dashed"
-        ? "border border-dashed border-gray-500 text-gray-700"
-        : type === "link"
-        ? "text-blue-500 hover:underline"
-        : type === "text"
-        ? "text-gray-500"
-        : "bg-gray-100 text-gray-700";
+    const typeClass = {
+      primary: "bg-primary text-white hover:bg-primary-dark",
+      dashed: "border border-dashed border-gray-500 text-gray-700",
+      link: "text-blue-500 hover:underline",
+      text: "text-gray-500",
+      default: "bg-gray-100 text-gray-700",
+    }[type];
 
-    const shapeClass =
-      shape === "circle"
-        ? "rounded-full"
-        : shape === "round"
-        ? "rounded-full px-5"
-        : "rounded-md";
+    const shapeClass = {
+      circle: "rounded-full",
+      round: "rounded-xl",
+      default: "rounded-md",
+    }[shape];
 
     const dangerClass = danger ? "bg-red-500 text-white hover:bg-red-600" : "";
-    const ghostClass = ghost
-      ? "bg-transparent text-gray-700 border border-gray-300"
-      : "";
+    const ghostClass = ghost ? "bg-transparent text-gray-700 border border-gray-300" : "";
 
-    const buttonClass = `
-      ${baseClass} 
-      ${blockClass} 
-      ${disabledClass} 
-      ${loadingClass} 
-      ${sizeClass} 
-      ${typeClass} 
-      ${shapeClass} 
-      ${dangerClass} 
-      ${ghostClass} 
-      ${classNames}
-    `.trim();
+    const buttonClass = `${baseClass} ${blockClass} ${disabledClass} ${loadingClass} ${sizeClass} ${typeClass} ${shapeClass} ${dangerClass} ${ghostClass} ${classNames}`.trim();
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (!disabled && !loading && onClick) {
@@ -99,10 +92,17 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       }
     };
 
-    const renderIcon = icon && !loading ? icon : null;
+    const loadingIconColorClass = {
+      primary: "text-white",
+      dashed: "text-gray-700",
+      link: "text-blue-500",
+      text: "text-gray-500",
+      default: "text-gray-700",
+    }[type];
+
     const renderLoadingIcon = loading ? (
       <svg
-        className="animate-spin h-5 w-5 text-white"
+        className={`animate-spin h-5 w-5 ${loadingIconColorClass} transition-opacity duration-300`}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -123,34 +123,47 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       </svg>
     ) : null;
 
-    return href ? (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={buttonClass}
-        style={styles}
-      >
-        {iconPosition === "start" && (renderLoadingIcon || renderIcon)}
-        {autoInsertSpace && typeof children === "string"
-          ? ` ${children} `
-          : children}
-        {iconPosition === "end" && (renderLoadingIcon || renderIcon)}
-      </a>
-    ) : (
+    if (href) {
+      return (
+        <a
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={buttonClass}
+          style={styles}
+          title={title}
+          aria-label={ariaLabel}
+          {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
+        >
+          {startIcon && !loading && startIcon}
+          {renderLoadingIcon}
+          {autoInsertSpace && typeof children === "string"
+            ? ` ${children} `
+            : children}
+          {endIcon && !loading && endIcon}
+        </a>
+      );
+    }
+
+    return (
       <button
-        ref={ref}
+        ref={ref as React.Ref<HTMLButtonElement>}
         type={htmlType}
         className={buttonClass}
         style={styles}
-        disabled={disabled}
+        disabled={disabled || !!loading}
         onClick={handleClick}
+        title={title}
+        aria-label={ariaLabel}
+        {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
       >
-        {iconPosition === "start" && (renderLoadingIcon || renderIcon)}
+        {startIcon && !loading && startIcon}
+        {renderLoadingIcon}
         {autoInsertSpace && typeof children === "string"
           ? ` ${children} `
           : children}
-        {iconPosition === "end" && (renderLoadingIcon || renderIcon)}
+        {endIcon && !loading && endIcon}
       </button>
     );
   }

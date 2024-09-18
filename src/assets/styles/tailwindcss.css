@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-  --primary: hsl(240 5.9% 10%);
-  --primary-foreground: hsl(210 40% 98%);
-}
-
 @layer base {
   #__next {
     display: contents;
