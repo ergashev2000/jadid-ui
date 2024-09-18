@@ -1,1 +1,6 @@
-# @coradion/ui
+# jadid-ui
+
+## Install
+```
+npm install jadid-ui
+```
