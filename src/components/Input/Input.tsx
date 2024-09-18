@@ -56,7 +56,7 @@ const Input: React.FC<InputProps> = ({
   }[size];
 
   const errorClass = error ? "border-red-500" : "border-gray-300";
-  const baseClass = `flex items-center border rounded-md shadow-sm ${errorClass} ${className}`;
+  const baseClass = `flex items-center border rounded-md focus:outline shadow-sm ${errorClass} ${className}`;
 
   const inputClass = `flex-1 bg-transparent px-3 py-2 ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed text-black outline-none disabled:opacity-50 ${sizeClasses}`;
 
