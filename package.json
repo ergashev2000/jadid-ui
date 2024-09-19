@@ -1,7 +1,7 @@
 {
   "name": "jadid-ui-test",
   "version": "0.0.1",
-  "description": "A component library for Coradion sites and apps",
+  "description": "UI components",
   "main": "dist/index.js",
   "type": "module",
   "exports": {
@@ -14,10 +14,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ergashev2000"
+    "url": "https://github.com/ergashev2000/jadid-ui"
   },
   "bugs": {
-    "url": "https://github.com/ergashev2000/ui/issues"
+    "url": "https://github.com/ergashev2000/jadid-ui/issues"
   },
   "directories": {
     "dist": "dist"
