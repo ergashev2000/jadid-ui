@@ -17,7 +17,7 @@ export interface FlexProps {
   align?: "start" | "end" | "center" | "baseline" | "stretch" | "normal";
   flex?: string;
   gap?: "small" | "middle" | "large" | string | number;
-  component?: ComponentType<any>;
+  as?: ComponentType<any>;
 }
 
 const Flex: React.FC<FlexProps> = ({
@@ -29,10 +29,15 @@ const Flex: React.FC<FlexProps> = ({
   align = "normal",
   flex = "initial",
   gap = "0",
-  component: Component = "div",
+  as: Component = "div",
 }) => {
   const directionClass = vertical ? "flex-col" : "flex-row";
-  const wrapClass = typeof wrap === "boolean" ? (wrap ? "flex-wrap" : "flex-nowrap") : `flex-${wrap}`;
+  const wrapClass =
+    typeof wrap === "boolean"
+      ? wrap
+        ? "flex-wrap"
+        : "flex-nowrap"
+      : `flex-${wrap}`;
   const justifyClass = justify !== "normal" ? `justify-${justify}` : "";
   const alignClass = align !== "normal" ? `items-${align}` : "";
 

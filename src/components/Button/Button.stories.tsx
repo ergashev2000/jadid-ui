@@ -26,10 +26,10 @@ export default {
       },
     },
     startIcon: {
-      control: { type: "none" }, // Use `none` if you want to manually add icons in stories
+      control: { type: "none" },
     },
     endIcon: {
-      control: { type: "none" }, // Use `none` if you want to manually add icons in stories
+      control: { type: "none" },
     },
     loading: {
       control: "boolean",
