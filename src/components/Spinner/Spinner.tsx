@@ -24,7 +24,7 @@ const Spinner: React.FC<SpinnerProps> = ({
     <div
       className={`flex justify-center gap-2 w-fit items-center ${className}`}
     >
-      <div role="status">
+      <div role="status" className={classNames("flex justify-center items-center", sizeClasses[size])}>
         <svg
           aria-hidden="true"
           className={classNames(
