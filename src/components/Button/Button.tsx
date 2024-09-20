@@ -54,7 +54,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, CombinedButtonP
     },
     ref
   ) => {
-    const baseClass = "inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 gap-3 transition-all duration-300";
+    const baseClass = "py-2 px-4 inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 gap-3 transition-all duration-300";
     const blockClass = block ? "w-full" : "";
     const disabledClass = disabled ? "opacity-50 cursor-not-allowed" : "";
     const loadingClass = typeof loading === "boolean" && loading ? "opacity-70 cursor-not-allowed" : "";

@@ -42,3 +42,8 @@ code,
 pre {
   font-family: var(--font-family-monospace);
 }
+
+
+.card-gradient{
+  background: radial-gradient(137.45% 110.02% at 98.97% 1.47%, #34383c, #242629), #242629;
+}
