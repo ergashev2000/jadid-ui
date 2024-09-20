@@ -1,9 +1,9 @@
 import React from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import Tabs, { TabPane } from './Tabs'; // Import Tabs and TabPane components
+import Tabs, { TabPane } from './Tabs'; 
 
 export default {
-  title: 'Components/Tabs',
+  title: 'navigation/Tabs',
   component: Tabs,
   argTypes: {
     defaultActiveKey: {
@@ -30,7 +30,7 @@ export default {
     vertical: {
       control: 'boolean',
       description: 'Display tabs in vertical orientation',
-      defaultValue: true, // Set to true for vertical layout
+      defaultValue: true,
     },
     position: {
       control: {
@@ -57,24 +57,22 @@ const Template: StoryFn<typeof Tabs> = (args) => (
   </Tabs>
 );
 
-// Story for vertical tabs on the left
 export const LeftVerticalTabs = Template.bind({});
 LeftVerticalTabs.args = {
   defaultActiveKey: '1',
   className: '',
   tabBarClassName: '',
   contentClassName: '',
-  vertical: true, // Vertical layout
-  position: 'left', // Tabs on the left
+  vertical: true,
+  position: 'left', 
 };
 
-// Story for vertical tabs on the right
 export const RightVerticalTabs = Template.bind({});
 RightVerticalTabs.args = {
   defaultActiveKey: '1',
   className: '',
   tabBarClassName: '',
   contentClassName: '',
-  vertical: true, // Vertical layout
-  position: 'right', // Tabs on the right
+  vertical: true, 
+  position: 'right',
 };
