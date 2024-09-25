@@ -2,12 +2,12 @@ import React from "react";
 import classNames from "classnames";
 
 export interface TitleProps {
-  order: 1 | 2 | 3 | 4 | 5 | 6;
+  order?: 1 | 2 | 3 | 4 | 5 | 6;
   className?: string;
   children: React.ReactNode;
 }
 
-const Title: React.FC<TitleProps> = ({ order, className, children }) => {
+const Title: React.FC<TitleProps> = ({ order = 1, className, children }) => {
   const headingStyles = {
     1: "text-4xl font-bold",
     2: "text-3xl font-bold",
