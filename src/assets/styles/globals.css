@@ -35,7 +35,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-sans);
 }
 
 code,
