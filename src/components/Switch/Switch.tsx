@@ -4,12 +4,12 @@ import Spinner from "../../components/Spinner/Spinner";
 
 export interface SwitchProps {
   autoFocus?: boolean;
-  checked?: boolean; // Optional for controlled usage
+  checked?: boolean; 
   checkedChildren?: React.ReactNode;
   className?: string;
-  defaultChecked?: boolean; // Initial checked state
+  defaultChecked?: boolean;
   disabled?: boolean;
-  loading?: boolean; // Loading state of switch
+  loading?: boolean; 
   size?: "default" | "small";
   unCheckedChildren?: React.ReactNode;
   onChange: (checked: boolean) => void;
@@ -31,7 +31,6 @@ const Switch: React.FC<SwitchProps> = ({
 }) => {
   const [isChecked, setIsChecked] = useState(defaultChecked);
 
-  // Update state if `checked` prop changes
   useEffect(() => {
     if (checked !== undefined) {
       setIsChecked(checked);
@@ -39,7 +38,7 @@ const Switch: React.FC<SwitchProps> = ({
   }, [checked]);
 
   const handleClick = (event: React.MouseEvent) => {
-    if (disabled || loading) return; // Prevent click if disabled or loading
+    if (disabled || loading) return; 
     const newChecked = !isChecked;
     setIsChecked(newChecked);
     onChange(newChecked);
@@ -55,7 +54,7 @@ const Switch: React.FC<SwitchProps> = ({
             "bg-blue-500": isChecked,
             "bg-gray-300": !isChecked,
             "opacity-50 cursor-not-allowed": disabled || loading,
-            "h-8 w-12": size === "small",
+            "h-[1.2rem] w-[2rem]": size === "small",
           }
         )}
         onClick={handleClick}
@@ -68,6 +67,8 @@ const Switch: React.FC<SwitchProps> = ({
             {
               "translate-x-6": isChecked,
               "translate-x-0.5": !isChecked,
+              "h-[1rem] w-[1rem]": size === "small",
+              "translate-x-3.5": size === "small" && isChecked
             }
           )}
         >
