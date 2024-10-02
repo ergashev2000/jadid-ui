@@ -1,0 +1,3 @@
+try{
+(()=>{var l=__STORYBOOK_ADDONS__,{addons:o,types:p,mockChannel:h}=__STORYBOOK_ADDONS__;var f=__STORYBOOK_THEMING__,{CacheProvider:x,ClassNames:S,Global:k,ThemeProvider:C,background:u,color:y,convert:N,create:a,createCache:R,createGlobal:B,createReset:D,css:G,darken:K,ensure:Y,ignoreSsrWarning:v,isPropValid:I,jsx:P,keyframes:A,lighten:E,styled:H,themes:M,typography:j,useTheme:w,withTheme:U}=__STORYBOOK_THEMING__;var s=a({base:"dark",brandTitle:"Coradion",brandUrl:"https://coradion.com",brandImage:"https://place-hold.it/350x150",brandTarget:"_blank"});o.setConfig({theme:s});})();
+}catch(e){ console.error("[Storybook] One of your manager-entries failed: " + import.meta.url, e); }

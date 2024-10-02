@@ -1,9 +1,10 @@
 import React, { forwardRef, ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
+import classNames from "classnames";
 
 export interface CommonButtonProps {
   autoInsertSpace?: boolean;
   block?: boolean;
-  classNames?: string;
+  className?: string;
   danger?: boolean;
   disabled?: boolean;
   ghost?: boolean;
@@ -33,7 +34,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, CombinedButtonP
     {
       autoInsertSpace = true,
       block = false,
-      classNames = "",
+      className: customClassNames = "",
       danger = false,
       disabled = false,
       ghost = false,
@@ -43,7 +44,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, CombinedButtonP
       endIcon,
       loading = false,
       shape = "default",
-      size = "middle",
+      size = "md",
       styles,
       type = "default",
       onClick,
@@ -55,9 +56,6 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, CombinedButtonP
     ref
   ) => {
     const baseClass = "py-2 px-4 inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 gap-3 transition-all duration-300";
-    const blockClass = block ? "w-full" : "";
-    const disabledClass = disabled ? "opacity-50 cursor-not-allowed" : "";
-    const loadingClass = typeof loading === "boolean" && loading ? "opacity-70 cursor-not-allowed" : "";
 
     const sizeClass = {
       xl: "px-8 py-4 text-xl",
@@ -68,7 +66,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, CombinedButtonP
     }[size];
 
     const typeClass = {
-      primary: "bg-primary text-white hover:bg-primary-dark",
+      primary: "bg-blue-500 text-white hover:bg-blue-600",
       dashed: "border border-dashed border-gray-500 text-gray-700",
       link: "text-blue-500 hover:underline",
       text: "text-gray-500",
@@ -83,8 +81,22 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, CombinedButtonP
 
     const dangerClass = danger ? "bg-red-500 text-white hover:bg-red-600" : "";
     const ghostClass = ghost ? "bg-transparent text-gray-700 border border-gray-300" : "";
+    const blockClass = block ? "w-full" : "";
+    const disabledClass = disabled ? "opacity-50 cursor-not-allowed" : "";
+    const loadingClass = typeof loading === "boolean" && loading ? "opacity-70 cursor-not-allowed" : "";
 
-    const buttonClass = `${baseClass} ${blockClass} ${disabledClass} ${loadingClass} ${sizeClass} ${typeClass} ${shapeClass} ${dangerClass} ${ghostClass} ${classNames}`.trim();
+    const buttonClass = classNames(
+      baseClass,
+      blockClass,
+      disabledClass,
+      loadingClass,
+      sizeClass,
+      typeClass,
+      shapeClass,
+      dangerClass,
+      ghostClass,
+      customClassNames
+    );
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       if (!disabled && !loading && onClick) {
