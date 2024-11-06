@@ -80,7 +80,7 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, CombinedButtonP
     }[shape];
 
     const dangerClass = danger ? "bg-red-500 text-white hover:bg-red-600" : "";
-    const ghostClass = ghost ? "bg-transparent text-gray-700 border border-gray-300" : "";
+    const ghostClass = ghost ? "bg-transparent text-black border border-gray-300" : "";
     const blockClass = block ? "w-full" : "";
     const disabledClass = disabled ? "opacity-50 cursor-not-allowed" : "";
     const loadingClass = typeof loading === "boolean" && loading ? "opacity-70 cursor-not-allowed" : "";
